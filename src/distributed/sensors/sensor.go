@@ -1,6 +1,7 @@
 package main
 
 import (
+	"dto"
 	"flag"
 	"log"
 	"math/rand"
@@ -25,8 +26,18 @@ func main() {
 
 	signal := time.Tick(dur)
 
+	buf := new(bytes.Buffer)
+	enc := gob.NewEncoder(buf)
+
 	for range signal {
 		calcValue()
+		rading := dto.SensorMessage{
+			Name: *name,
+			Value: value,
+			Timestamp: time.Now()
+		}
+		buf.Reset()
+		enc.Encode(reading)
 		log.Printf("Reading sent. Value: %v\n", value)
 	}
 }
