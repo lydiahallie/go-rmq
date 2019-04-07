@@ -8,7 +8,7 @@ import (
 type SensorMessage struct {
 	Name      string
 	Value     float64
-	Tiemstamp time.Time
+	Timestamp time.Time
 }
 
 func init() {
